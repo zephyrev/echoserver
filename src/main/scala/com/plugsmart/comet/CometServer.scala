@@ -1,39 +1,44 @@
+/*
+ * Copyright © 2011 Juice Technologies, LLC.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+
 package com.plugsmart.comet
 
 import _root_.net.liftweb._
 import http._
-import common._
 import actor._
 import util._
-import Helpers._
 import _root_.scala.xml.{NodeSeq, Text}
-import _root_.java.util.Date
 
 object CometServer extends LiftActor with ListenerManager {
-  private var elines: List[EchoLine] = List(EchoLine(Text("Rest Echo Server"), now))
+  private var elines: List[EchoLine] = List( EchoLine(<span><b>Rest Echo Server</b></span>))
 
   override def lowPriority = {
-    case EchoServerMsg( msg ) =>
-      elines ::= EchoLine( toHtml(msg), timeNow)
-      elines = elines.take(50)
+    case EchoServerMsg( msg ) =>  {
+      println("EchoServer received msg # " + elines.size )
+      elines =  EchoLine( msg ) :: elines
+      elines = elines.take(20)
       updateListeners()
-
-    case _ =>
+    }
+    case _ => {}
   }
 
   def createUpdate = EchoServerUpdate(elines.take(15))
 
-  /**
-   * Convert an incoming string into XHTML using Textile Markup
-   *
-   * @param msg the incoming string
-   *
-   * @return textile markup for the incoming string
-   */
-  def toHtml(msg: String): NodeSeq = <div>msg</div>
-
 }
 
-case class EchoLine(msg: NodeSeq, when: Date)
-case class EchoServerMsg(msg: String)
+case class EchoLine(msg: NodeSeq)
+case class EchoServerMsg(msg: NodeSeq)
 case class EchoServerUpdate(msgs: List[EchoLine])
