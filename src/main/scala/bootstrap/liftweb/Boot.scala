@@ -26,6 +26,7 @@ import auth.{AuthRole, userRoles, HttpBasicAuthentication}
 import js.jquery.JQuery14Artifacts
 import com.plugsmart.rest.{userCredential, EchoRestService}
 import com.plugsmart.comet.CometServer
+import com.plugsmart.comet.CometTableServer
 import net.liftweb.actor.LiftActor
 import com.plugsmart.snippet.RuntimeStats
 import _root_.java.util.Date
@@ -50,6 +51,7 @@ class Boot {
 
     val roles = AuthRole("admin")
 
+    CometTableServer
     CometServer
 
     // Build SiteMap

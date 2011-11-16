@@ -1,19 +1,30 @@
 <lift:surround with="default" at="content">
 
-    <div class="widget sidebar">
-        <center><b>REST Test Server</b></center>
-        <br>
+	<div class="widget sidebar">
+		<center>
+			<b>REST Test Server</b>
+		</center>
+		<br>
 
-        <div lift="comet?type=CometEcho;name=Other;ul_id=main_ul_id;li_id=main_li_id">
+<!-- 		<div lift="comet?type=CometEcho;name=Other;ul_id=main_ul_id;li_id=main_li_id">
 
-            <ul id="main_ul_id">
-                <li id="main_li_id">
-                    <span name="restline">Rest Hit List</span>
-                </li>
-            </ul>
-        </div>
-    </div>
+			<ul id="main_ul_id">
+				<li id="main_li_id"><span name="restline">Rest Hit List</span>
+				</li>
+			</ul>
+		</div> -->
 
+		<div lift="comet?type=CometEchoTable;name=RestTest;table_id=main_table_id;tr_id=main_tr_id;td_id=main_td_id">
+			<table id="main_table_id">
+				<tr id="main_tr_id">
+					<td name="verb">POST</td>
+					<td name="timest">10:99:10</td>
+					<td name="url">echo.example.com</td>
+                    <td name="contentType">application/json</td>
+					<td name="content">{"raw":"input"}</td>
+				</tr>
+			</table>
+		</div>
 </lift:surround>
 
 

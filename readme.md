@@ -12,7 +12,9 @@ All calls are Authenticated with basic http authentication
 
 
 ##Dependencies
-[Lift](http://liftweb.net/)
+
+* [Scala 2.9.1](http://scala-lang.org)
+* [Lift 2.4](http://liftweb.net/)
 
 
 ##Installation
@@ -27,7 +29,11 @@ View under localhost:8080
 Send input to localhost:8080/api/
 
  ```
- curl -v PUT -d '{"s":"one"}' localhost:8080/api/fopp --user simkey101:ss101
+ curl -v -X PUT -d '{"s":"one"}' localhost:8080/api/fopp --user simkey101:ss101 -H "Content-Type:application/json"
+ ```
+
+ ```
+ curl -v -X POST -d "{"json":"test"}"  http://localhost:8080/api/testurl --user simkey101:ss101 -H "Content-Type:application/json"
  ```
 
 
